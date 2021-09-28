@@ -6,22 +6,23 @@ int main(int argc, char **argv)
     char *id_s = _itoa(id);
     char cmd[30];
 
+    argv[1] = "s";
+    argc = 2;
+
+    struct sockaddr_in server_add, client_add;
+
     if (argc < 2)
     {
-        dprintf(STDERR_FILENO, "\n%s Usage: incorrect%s\n", RED_F, RESET_COLOR);
+        dprintf(STDERR_FILENO, "\n%s Usage: incorrect%s\n", RED_T, RESET_COLOR);
         exit(EXIT_FAILURE);
     }
 
-    struct sockaddr_in server;
-
     while (1)
     {
-        printf("%s" YELLOW_T);
+        signal(SIGINT, signal_line);
         my_promt();
         scanf("%s", cmd);
         get_cmd(cmd);
-        signal(SIGINT, signal_line);
-        printf("%s", RESET_COLOR);
     }
 
     return 0;
